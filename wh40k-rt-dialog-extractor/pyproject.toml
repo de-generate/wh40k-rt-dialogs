@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rt-dialogs"
+version = "0.1.0"
+description = "Extracts the dialogs of Warhammer 40,000: Rogue Trader from an exported blueprint dump"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+rt-dialogs = "rt_dialogs.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["rt_dialogs*"]
