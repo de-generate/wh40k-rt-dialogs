@@ -9,14 +9,16 @@ import sys
 from ..model import Dialog, DialogDatabase
 
 
-def add_dialog_selection(p: argparse.ArgumentParser) -> None:
+def add_dialog_selection(
+    p: argparse.ArgumentParser, default: str = "skip-deleted"
+) -> None:
     p.add_argument(
         "--dialogs",
-        default="skip-deleted",
+        default=default,
         metavar="all|skip-deleted|NAME[,NAME…]",
         help='which dialogs to output: "all", "skip-deleted" (everything except editor-deleted '
         "dialogs), or a comma-separated list of dialog names (entry-point file name without "
-        ".jbp), AssetIds or paths (default: skip-deleted)",
+        f".jbp), AssetIds or paths (default: {default})",
     )
 
 

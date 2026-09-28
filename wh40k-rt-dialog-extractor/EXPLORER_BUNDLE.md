@@ -1,7 +1,7 @@
 # Explorer bundle format (version 1)
 
 The compact export that `wh40k-rt-dialog-explorer` loads. The extractor owns this format; the explorer follows it.
-Status: specified, not yet implemented.
+Implemented in `rt_dialogs/formats/explorer_bundle.py` (`VERSION` there matches the version here).
 
 Design goals:
 

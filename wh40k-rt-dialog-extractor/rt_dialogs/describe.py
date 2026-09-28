@@ -251,6 +251,42 @@ class Describer:
 
     # --------------------------------------------------------------- others
 
+    def action(self, a: Action) -> str:
+        """One-line description of an action: type, references and simple values."""
+        p = a.params
+        if a.type == "Conditional":
+            cond = self.conditions(p.get("ConditionsChecker")) or "always"
+            text = f"if {cond}: {self.action_list(p.get('IfTrue')) or 'nothing'}"
+            otherwise = self.action_list(p.get("IfFalse"))
+            return text + (f"; otherwise: {otherwise}" if otherwise else "")
+        args = []
+        for k, v in p.items():
+            if isinstance(v, dict) and "$type" in v and "Value" in v:  # IntConstant etc.
+                v = v["Value"]
+            if k == "Comment" or isinstance(v, (bool, dict, list)):
+                continue
+            if v in (0, "", "None"):
+                continue
+            if isinstance(v, str) and v.startswith("!bp_"):
+                args.append(self.ref(v))
+            else:
+                args.append(f"{k.removeprefix('m_')}={v}")
+        return f"{a.type}({', '.join(args)})" if args else a.type
+
+    def action_list(self, raw: Any) -> str:
+        """Description of a raw ``{"Actions": [...]}`` container (nested in Conditional actions)."""
+        items = (raw.get("Actions") or []) if isinstance(raw, dict) else []
+        return ", ".join(
+            self.action(
+                Action(
+                    type=i.get("$type", "?"),
+                    params={k: v for k, v in i.items() if k != "$type"},
+                )
+            )
+            for i in items
+            if isinstance(i, dict)
+        )
+
     @staticmethod
     def actions(actions: list[Action]) -> str:
         out: list[str] = []

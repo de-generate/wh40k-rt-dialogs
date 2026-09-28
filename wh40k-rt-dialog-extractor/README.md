@@ -49,6 +49,18 @@ python -m rt_dialogs output labeled-script-single
 | `--separator` | `\n\n\n` | Text between dialogs (`\n`, `\t`, `\\` escapes) |
 | `--output-file` | `dialogs-labeled-script-single.txt` | Output file |
 
+Write the bundle for the dialog explorer (a zip of ~40 MB with all locales, ~8 MB with one):
+
+```bash
+python -m rt_dialogs output explorer-bundle --locales enGB,deDE
+```
+
+| Option | Default | Meaning |
+|---|---|---|
+| `--locales` | all except `dev` | Comma-separated locales; missing texts fall back to `enGB` |
+| `--dialogs` | `all` | As above; deleted dialogs are included and flagged by default |
+| `--output-file` | `dialogs-explorer-bundle.zip` | Output file |
+
 ## Reading the labeled script
 
 ```
@@ -74,6 +86,7 @@ python -m rt_dialogs output labeled-script-single
 * `dialogs.json`: the full database (all dialogs incl. deleted ones, all nodes, all locales, conditions and actions).
   Load it in Python with `rt_dialogs.load_cache('dialogs.json')`.
 * `DIALOG_STRUCTURE.md`: how the raw export is structured.
+* `EXPLORER_BUNDLE.md`: format of the explorer bundle.
 
 ## Tests
 

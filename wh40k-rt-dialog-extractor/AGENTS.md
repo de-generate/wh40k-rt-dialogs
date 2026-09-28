@@ -9,8 +9,9 @@ The tool works in two stages:
 
 1. `python -m rt_dialogs build` parses the whole export into one database, `dialogs.json`. It works as a cache:
    parsing takes ~30–80 s, loading the cache ~4 s.
-2. `python -m rt_dialogs output <format>` renders the database in human-readable formats. So far there is
-   `labeled-script-single`: all dialogs as a readable script in one text file. More formats are planned.
+2. `python -m rt_dialogs output <format>` renders the database in other formats. So far there are
+   `labeled-script-single` (all dialogs as a readable script in one text file) and `explorer-bundle` (the zip the
+   explorer loads, spec in `EXPLORER_BUNDLE.md`).
 
 Environment: Python 3.13 on Windows, standard library only (no pytest; tests use `unittest`). This directory is one
 project in a larger git repository (see `../AGENTS.md`); run commands from here. `data/` and generated files are
