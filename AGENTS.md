@@ -4,7 +4,8 @@ This repository holds two projects about the dialogs of *Warhammer 40,000: Rogue
 
 * `wh40k-rt-dialog-extractor/`: standalone Python tool (raw game export → `dialogs.json` → output formats).
   Read its `AGENTS.md` before working on it.
-* `wh40k-rt-dialog-explorer/`: web app for browsing dialogs, in planning. It consumes the extractor's output.
+* `wh40k-rt-dialog-explorer/`: static web app for browsing dialogs (Solid 2, TypeScript). It consumes the
+  extractor's explorer bundle. Read its `AGENTS.md` before working on it.
 
 Keep the extractor independent of the explorer: the dependency points one way only (explorer → extractor).
 

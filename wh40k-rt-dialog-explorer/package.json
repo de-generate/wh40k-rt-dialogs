@@ -1,0 +1,29 @@
+{
+  "name": "wh40k-rt-dialog-explorer",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Browse the dialogs of Warhammer 40,000: Rogue Trader from an extractor bundle.",
+  "type": "module",
+  "packageManager": "pnpm@12.9.1",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@solidjs/web": "^2.0.0-rc.13",
+    "@zip.js/zip.js": "^2.23.0",
+    "idb-keyval": "^6.3.0",
+    "solid-js": "^2.0.0-rc.13"
+  },
+  "devDependencies": {
+    "@solidjs/vite-plugin": "^3.0.0-next.47",
+    "@tailwindcss/vite": "^4.3.3",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  }
+}

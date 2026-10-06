@@ -1,0 +1,4 @@
+# Wait a day before installing newly published versions (minutes).
+minimumReleaseAge: 1440
+# Fail instead of silently skipping dependency build scripts.
+strictDepBuilds: true

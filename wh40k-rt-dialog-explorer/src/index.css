@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-neutral-950 text-neutral-200 antialiased;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply rounded border border-neutral-700 px-2 py-0.5 text-neutral-300 hover:bg-neutral-800 disabled:opacity-40 disabled:hover:bg-transparent;
+  }
+  .input {
+    @apply rounded border border-neutral-700 bg-neutral-900 px-2 py-1 text-neutral-200 outline-none focus:border-sky-600;
+  }
+}

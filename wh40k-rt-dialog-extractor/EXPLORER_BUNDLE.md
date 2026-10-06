@@ -19,7 +19,7 @@ python -m rt_dialogs output explorer-bundle [--locales LOC[,LOC…]] [--dialogs 
 | Option | Default | Meaning |
 |---|---|---|
 | `--locales` | all locales except `dev` | locales to include, e.g. `enGB,deDE` (~10 MB raw / ~4 MB zipped each) |
-| `--dialogs` | `all` | usual selection (`formats/common.py`); unlike other formats, deleted dialogs are included by default and flagged, so the explorer can offer a toggle |
+| `--dialogs` | `all` | usual selection (`formats/common.py`); unlike other formats, deleted dialogs are included by default and flagged. The explorer never lists deleted dialogs or dialogs without nodes |
 | `--output-file` | `dialogs-explorer-bundle.zip` | file to write |
 
 `enGB` is always used as the fallback text source, even when it isn't among `--locales`.
@@ -158,6 +158,17 @@ The explorer does not simulate this. Wherever the game decides, the user chooses
 * **Answers:** every answer is shown and clickable. `show` and `select` conditions appear as labels.
 * **Checks:** the user picks success or failure.
 * A step with a single, unconditional way forward proceeds automatically.
+* A node with `once` counts as conditional for fall-through, since the game may skip it.
+
+Sequences need more than the list above says. In the data they nest (sequences, pages and checks as entries), and
+entries often have their own flow: 577 sequence cues `continue` to nodes outside the sequence, and some page answers
+inside sequences have a `next`. How the game combines the two isn't known, so the explorer lets the user choose:
+
+* **Stack:** entering a sequence pushes it. A branch that ends (no way forward) returns to the innermost sequence's
+  next entry; the dialog ends only when no sequence is left. A finished sequence goes to its `exit`.
+* **Entries with their own flow:** after a sequence cue with `continue` or `answers`, the options are "next in
+  sequence" first, then the cue's own alternatives and answers.
+* **Page cues:** a page shows all its cues, each labeled with its conditions; they are not play/skip choices.
 
 ## 6. Conditions
 
@@ -211,7 +222,7 @@ then dim options the game wouldn't offer, but never block them.
   * `CueSeen`, `AnswerSelected`, `AnswerListShown`, `CheckPassed`, `CheckFailed` for nodes in the current dialog;
   * `once`.
 * **From settings:**
-  * gender: `PcMale`, `PcFemale`, and it also selects the `{mf|…}` text;
+  * gender: `PcMale`, `PcFemale` (the gender setting already selects the `{mf|…}` text, see §7);
   * companion states: the `CompanionInParty` match states, `CompanionIsDead`, `CompanionIsLost`;
   * soul-mark points: the dominant direction and `requires` values;
   * chapter: `CurrentChapter`, defaulting to the dialog's `chapter`.
@@ -235,8 +246,9 @@ then dim options the game wouldn't offer, but never block them.
   node and a path to it from `start`.
 * A string used by several dialogs appears once in each dialog's group.
 * Texts keep the game's inline markup (DIALOG_STRUCTURE.md §5.5). The explorer renders it: `{n}` as narration,
-  glossary links as plain text, `{mf|…}` as both variants (until a gender setting exists), and `{name}` as a
-  placeholder.
+  glossary links as plain text, `{mf|male|female}` as the variant of the player gender setting (both variants when
+  unset), `{name}` as the player name setting (a placeholder when unset), and other variant tags such as
+  `{nc|a|b}` (meaning unknown) with all options. The settings only affect display, never the flow.
 * Keys that can't be resolved in any locale are absent. The explorer shows them as missing text.
 
 ## 8. Not included
