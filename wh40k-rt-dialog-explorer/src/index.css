@@ -1,9 +1,8 @@
 @import "tailwindcss";
+@import "./themes/dark.css";
+@import "./themes/light.css";
 
 @layer base {
-  :root {
-    color-scheme: dark;
-  }
   body {
     @apply bg-neutral-950 text-neutral-200 antialiased;
   }

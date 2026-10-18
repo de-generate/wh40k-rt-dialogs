@@ -6,6 +6,7 @@ import { clearStoredBundle, loadStoredBundle, storeBundle } from "./bundle/stora
 import type { Dialog } from "./bundle/types";
 import { findPath, play, stepTextKeys } from "./player/engine";
 import { buildTextIndex, defaultFilters, type Filters } from "./search/search";
+import { defaultTheme, isTheme, type ThemeId } from "./themes/themes";
 
 // ---- Bundle
 
@@ -133,6 +134,18 @@ const [gender, setGender] = persisted<Gender>("gender", "");
 const [playerName, setPlayerName] = persisted<string>("playerName", "");
 const [showComments, setShowComments] = persisted<boolean>("showComments", false);
 export { setLocale, gender, setGender, playerName, setPlayerName, showComments, setShowComments };
+
+/** Color theme, applied as `data-theme` on the root element (see `src/themes/`). */
+const [storedTheme, storeTheme] = persisted<string>("theme", defaultTheme);
+export const theme = (): ThemeId => {
+  const t = storedTheme();
+  return isTheme(t) ? t : defaultTheme;
+};
+export function setTheme(next: ThemeId) {
+  storeTheme(next);
+  document.documentElement.dataset.theme = next;
+}
+document.documentElement.dataset.theme = theme();
 
 // ---- Search input (kept here so it survives re-renders of the sidebar)
 

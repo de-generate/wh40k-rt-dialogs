@@ -28,7 +28,8 @@ Read `node_modules/solid-js/CHEATSHEET.md` before writing components. The traps 
 | `src/player/engine.ts` | Plays a dialog along a path of choice indices; `findPath` for full-text jumps. No UI code |
 | `src/text/markup.ts` | The game's inline markup (`{n}`, `{g|…}`, `{mf|…|…}`, `{name}`, …) |
 | `src/search/` | Index search, filters and full-text search |
-| `src/state.ts` | App state: bundle lifecycle, route (`#/<dialogId>/<i>.<i>…`), display settings (locale, gender, name, comments; in localStorage), derived memos |
+| `src/state.ts` | App state: bundle lifecycle, route (`#/<dialogId>/<i>.<i>…`), display settings (locale, gender, name, comments) and theme, in localStorage, derived memos |
+| `src/themes/` | Color themes: one CSS file each, registered in `themes.ts` |
 | `src/ui/` | Components: `App` (shell, loader), `Sidebar` (search), `DialogPanel` (transcript, choices) |
 
 ## Player semantics
@@ -42,6 +43,14 @@ The explorer is not a simulator: conditions never hide or block, and wherever th
 * Nodes with `once` count as conditional for fall-through.
 * Option order is part of the URL format. Prefer appending new options over reordering existing ones.
 * Display settings (gender, name, comments) only change rendering; keep them out of `src/player/`.
+
+## Themes
+
+Components are styled with Tailwind's palette for the dark theme (the default). Each other theme is a CSS file in
+`src/themes/` that overrides the `--color-<hue>-<step>` variables under `[data-theme="<id>"]`, plus `color-scheme`;
+import it in `index.css` and list it in `themes.ts`. The light theme mirrors the scales, so `neutral-950` is the page
+background and `neutral-100` the strongest text in both. A component that starts using a new hue needs that hue added
+to `light.css`, or it keeps its dark values there. `index.html` applies the stored theme before the first paint.
 
 ## Tests and data
 

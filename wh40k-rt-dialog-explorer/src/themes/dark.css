@@ -1,0 +1,5 @@
+/* Dark theme: the default, using Tailwind's palette as is. */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+}

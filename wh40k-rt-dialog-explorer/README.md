@@ -23,5 +23,6 @@ pnpm test    # unit tests
 * Display settings next to the locale: player gender (picks the `{mf|…}` variant) and name (fills `{name}`); unset,
   both variants and the placeholder are shown. Designer comments are hidden unless enabled. The settings are
   remembered in the browser and never change the dialog flow.
+* The theme picker in the top bar switches between the dark and light themes; the choice is remembered too.
 * The path lives in the URL, so reloads and shared links keep it. A full-text hit opens the dialog at the shortest
   path that shows the text.

@@ -1,5 +1,6 @@
-import { Match, Show, Switch, createSignal } from "solid-js";
-import { bundleState, derived, forgetBundle, loadBundleFile } from "../state";
+import { For, Match, Show, Switch, createSignal } from "solid-js";
+import { bundleState, derived, forgetBundle, loadBundleFile, setTheme, theme } from "../state";
+import { themes, type ThemeId } from "../themes/themes";
 import { DialogPanel } from "./DialogPanel";
 import { Sidebar } from "./Sidebar";
 
@@ -44,6 +45,12 @@ function Header() {
           </>
         )}
       </Show>
+      <label class="ml-auto flex items-center gap-1 text-neutral-400">
+        Theme
+        <select class="input py-0.5" value={theme()} onChange={(e) => setTheme(e.currentTarget.value as ThemeId)}>
+          <For each={themes}>{(t) => <option value={t.id}>{t.label}</option>}</For>
+        </select>
+      </label>
     </header>
   );
 }
